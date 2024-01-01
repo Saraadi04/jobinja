@@ -120,6 +120,7 @@ class Job(models.Model):
     
     title = models.CharField(max_length=200)
     description = models.TextField()
+    candidate = models.CharField(max_length=200)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     location = models.ForeignKey(Provinces,on_delete=models.CASCADE)
     employer = models.ForeignKey(Company, on_delete=models.CASCADE)

@@ -19,7 +19,9 @@ from django.urls import path , include
 from django.http import HttpResponse
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('works.urls'))
+    path('', include('works.urls')),
+    path('jobs/', include('works.urls'),)
 ]
