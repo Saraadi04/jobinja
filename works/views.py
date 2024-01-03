@@ -48,12 +48,12 @@ def my_view(request):
 
   # Check if today is a holiday
   if data['is_holiday']:
-      messages.info(request, "Due to recent holidays, your request may exprience delay. We appreciate your understanding")
+      message = "Due to recent holiday, your request may exprience delay.we appreciate your understanding."
   else:
-      messages.info(request, "")
+      message = None
 
   # Render the template
-  return render(request, 'works/message.html')
+  return render(request, 'works/message.html', context = message)
 
 
     
