@@ -1,0 +1,7 @@
+{% messages %}
+ <ul class="messages">
+   {% for message in messages %}
+       <li class="{{ message.info }}">{{ message }}</li>
+   {% endfor %}
+ </ul>
+{% endmessages %}

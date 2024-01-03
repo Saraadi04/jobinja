@@ -1,6 +1,6 @@
-
 <!-- landing.html -->
 {% include 'works/navbar.html' %}
+{%  load messages %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,8 +29,8 @@
                 <td>{{ item.category }}</td>
                 <td>{{ item.employer }}</td>
                 <td>
-                    <a href="/jobs/{{ item.no }}">
-                        <button type="button" class="btn btn-warning">details 
+                    <a href="/detail/{{ item.pk }}">
+                        <button type="button" class="btn btn-warning">detail 
                     </a>
                 </td>
             </tr>
@@ -38,6 +38,10 @@
           </tr>
         </tbody>
       </table>
+      {% block content %}
+      {%  include 'works/message.html' %}
+      {% endblock %}
+      
       
     
 </body>

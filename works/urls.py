@@ -1,11 +1,11 @@
 from django.urls import path
-from .views import  home, landing, detail
+from .views import landing , detail , provinceview
 
+app_name = 'works'
 
 urlpatterns = [
-    path('', home, name='home'),
-    path('home', home, name='home'),
-    path('jobs', landing, name="job's list"),
-    path('<str:code>', detail, name="job's details"),
-    
+    path('', landing , name='jobs'),
+    path("<str:id>" , detail , name='details'),
+    path("home/" , landing , name='home'),
+    path("province/" , provinceview , name="province")  
 ]

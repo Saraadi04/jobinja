@@ -1,39 +1,7 @@
-<!-- we inherit from navbar.html -->
+<!-- we inherit from main.html -->
+{% extends 'main.html' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> jobinja </title>
-    <meta name="viewport" content="width=device-width, initial-scale1">
-</head> 
-<body>   
-    <!-- we inherit navbar  -->
-    {% include 'navbar.html' %}
-    {% block content %}
-
-
-    {% endblock  %}
-</body>   
-</html>
 {% block content %}
-<h1> follow these steps and get the job!</h1>
-<div>
-    <div>
-        {% for room in rooms %}
-            <div>
-                <h5>{{room.id}} -- {{room.name}}</h5>
-                
-
-            </div>
-
-
-
-        {% endfor %}
-    </div>
-
-
-</div>
+<h1> home template </h1>
 
 {%  endblock content %}

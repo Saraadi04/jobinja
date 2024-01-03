@@ -54,7 +54,7 @@ class Provinces(models.Model):
         ('Khorasan Jonoubi', 'Khorasan Jonoubi'),
         ('Khorestan Shomali', 'Khorestan Shomali'),
         ('Lorestan', 'Lorestan')
-     )
+    )
     name = models.CharField(max_length=30 , choices = PROVINCES_CHOICES)
 
     def __str__(self):
@@ -120,7 +120,6 @@ class Job(models.Model):
     
     title = models.CharField(max_length=200)
     description = models.TextField()
-    candidate = models.CharField(max_length=200)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     location = models.ForeignKey(Provinces,on_delete=models.CASCADE)
     employer = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -149,7 +148,7 @@ class JobSeeker(models.Model):
     )
 
     name = models.CharField(max_length = 200)
-    email_adress = models.CharField(max_length=300)
+    email_adress = models.EmailField()
     phone_number = models.CharField(max_length=12)
     birthday = models.DateField()
     gender = models.CharField(max_length=10, choices = GENDER_CHOICES)
@@ -163,4 +162,6 @@ class JobSeeker(models.Model):
     class Meta:
         verbose_name_plural = 'JobSeekers'
 
-
+class Holiday(models.Model):
+    date = models.DateField()
+    description = models.CharField(max_length=255)        

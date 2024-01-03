@@ -1,101 +1,59 @@
-from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from .models import Job,JobSeeker,Company,Provinces,Category
+from works.models import Job,JobSeeker,Company,Provinces,Category
 from django.shortcuts import render
-import random
-
-
+from django.contrib import messages
+from persiantools.jdatetime import JalaliDate
+import holidays
+import requests
 
 
 def landing(request):
-    jobs = Job.objects.all()
+    jobs = Job.objects.all() 
     f_list= {
-       "jobs": jobs
-    }
+        "jobs": jobs
+        } 
     return render(request, 'works/landing.html', context=f_list)
 
-#def job_detail(request, job_id):
-    #job = get_object_or_404(Job, pk=job_id)
-   # return render(request, 'job_detail.html', {'job': job})    
 
-def company(request):
-    
-    companies = Company.objects.all()
-    
-    f_list2= {
-        "companies": companies
-    }
-
-    return render(request, 'works/companies.html', context=f_list2)
-
-def index(request):
-    
-    if request.method == 'POST':
-        title = request.POST['title']
-        category = request.POST['category']
-        location = request.POST['location']
-        
-        jobs = Job.objects.filter(provinces_name=location,category_name=category,job_title=title)
-
-        t_list ={
-            'jobs' : jobs
-        }
-
-        return render(request, 'works/landing.html', context=t_list)
-    
-    return render(request, 'works/index.html')
-
-def home(request):
-    return render(request, 'Works/navbar.html')
-
-
-def generate_reservation_code():
-    # this is a function to generate random unique reservation code
-    random_code = random.randint(10000000,99999999)
-    try:
-        JobSeeker.objects.get(reservation_code=random_code)
-        generate_reservation_code()
-    except:
-        return random_code
-
-
-def detail(request, code):
+def detail(request,id):
     if request.method == 'GET':
         try:
-            jobs = Job.objects.get(no=code)
+            jobs = Job.objects.get(pk=id)
         except:
             jobs = None
-        f_list = {
+        j_list = {
             'jobs' : jobs, 
             'flag' : False
         }
-        return render(request, 'works/job_detail.html', context=f_list)
-    if request.method == 'POST':
-        current_jobseeker = JobSeeker.objects.get(no=code)
-        email=request.POST['email']
-        name=request.POST['name']
-        phone_number=request.POST['phone_number']
-        birthday=request.POST['birthday']
-        gender=request.POST['gender']
-        # check available candidate
-        if name == '':
-            return HttpResponse('Error: Name should not be empty')
-        if int(Job.candidate) <= 0:
-            return HttpResponse("Error: There is no enough seat. max seat available is :{}".format(current_job.candidate))
-        JobSeeker.objects.create(
-            job=current_job,
-            name=name,
-            e=lastname,
-            email = email,
-            birthday=birthday,
-            cv=cv,
-            reservation_code=generate_reservation_code()
-        )
-        current_job.candidate = current_job.candidate - 1
-        current_jobseeker.save()
-        f_list = {
-            'jobs' : current_job,
-            'flag' : True
-        }
-        return render(request, 'job_detail.html', context=f_list)
-        
+        return render(request, 'works/detail.html', context=j_list)
+    
+
+def provinceview(request):
+    provinces = Provinces.objects.all() 
+    return provinces
+
+
+def my_view(request):
+  # Get the current date in the Jalali calendar
+  current_date = JalaliDate.today()
+
+  # Format the date as YYYY/MM/DD
+  date_str = f"{current_date.year}/{current_date.month}/{current_date.day}"
+
+  # Send a GET request to the API
+  response = requests.get(f'https://holidayapi.ir/jalali/{date_str}')
+
+  # Parse the JSON response
+  data = response.json()
+
+  # Check if today is a holiday
+  if data['is_holiday']:
+      messages.info(request, "Due to recent holidays, your request may exprience delay. We appreciate your understanding")
+  else:
+      messages.info(request, "")
+
+  # Render the template
+  return render(request, 'works/message.html')
+
+
+    
