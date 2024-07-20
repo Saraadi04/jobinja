@@ -1,14 +1,5 @@
-from django.contrib.admin import ModelAdmin, register
-from .models import Job,JobSeeker,Company,Provinces,Category
-
-
-@register(Job)
-class JobAdmin(ModelAdmin):
-    pass
-
-@register(JobSeeker)
-class JobSeekerAdmin(ModelAdmin):
-    pass
+from django.contrib.admin import ModelAdmin,register
+from .models import Company, Provinces , Category , Job , JobSeeker
 
 @register(Company)
 class CompanyAdmin(ModelAdmin):
@@ -19,5 +10,14 @@ class ProvincesAdmin(ModelAdmin):
     pass
 
 @register(Category)
-class categoryAdmin(ModelAdmin):
+class CategoryAdmin(ModelAdmin):
     pass
+
+@register(Job)
+class JobAdmin(ModelAdmin):
+    pass
+
+@register(JobSeeker)
+class JobSeekerAdmin(ModelAdmin):
+    pass
+

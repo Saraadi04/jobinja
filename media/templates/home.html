@@ -1,0 +1,23 @@
+<!-- we inherit from main.html -->
+{% extends 'main.html' %}
+
+{% block content %}
+<h1> follow these steps and get the job!</h1>
+<div>
+    <div>
+        {% for room in rooms %}
+            <div>
+                <h5>{{room.id}} -- {{room.name}}</h5>
+                
+
+            </div>
+
+
+
+        {% endfor %}
+    </div>
+
+
+</div>
+
+{%  endblock content %}

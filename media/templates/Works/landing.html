@@ -1,6 +1,5 @@
 <!-- landing.html -->
 {% include 'works/navbar.html' %}
-{%  load messages %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +11,9 @@
     <title>Job List</title>
 </head>
 <body>
+  {% if message %}
+  <p>{{ message }}</p>
+  {% endif %}
     <table class="table">
         <thead>
           <tr>
@@ -39,7 +41,6 @@
         </tbody>
       </table>
       {% block content %}
-      {%  include 'works/message.html' %}
       {% endblock %}
       
       

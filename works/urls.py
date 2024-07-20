@@ -1,11 +1,10 @@
+#Defines URL patterns for learning_log
+
 from django.urls import path
-from .views import landing , detail , provinceview
+from . import views
 
-app_name = 'works'
-
+app_name = 'learning_log'
 urlpatterns = [
-    path('', landing , name='jobs'),
-    path("<str:id>" , detail , name='details'),
-    path("home/" , landing , name='home'),
-    path("province/" , provinceview , name="province")  
+    #Homepage
+    path('', views.index, name='index'),
 ]
